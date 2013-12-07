@@ -1,0 +1,6 @@
+*.csproj
+*.pidb
+Library/
+Temp/
+*.sln
+datatoys_foodstamp.userprefs
