@@ -6,6 +6,8 @@ public class SnapCalc : MonoBehaviour {
 
     public static SnapCalc instance;
 
+    public int benefit { get { return GetSnap(); } }
+
     // poverty level for family of 4
     int householdSize = 4; // 1-8
     int householdIncome = 23550;
@@ -67,13 +69,13 @@ public class SnapCalc : MonoBehaviour {
             householdSize = Random.Range( 1, 8 );
             householdIncome = Random.Range( 0, povertyTable[householdSize]);
         }
-        GUI.Label( new Rect(0f, 8f, 256f, 64f), "household size: " + householdSize.ToString() );
-        householdSize = Mathf.RoundToInt( GUI.HorizontalSlider( new Rect( 0f, 0f, 256f, 64f ), householdSize, 1f, 8f ) );
-        GUI.Label( new Rect(0f, 72f, 256f, 64f), "household income, annual: $" + householdIncome.ToString() );
-        householdIncome = Mathf.RoundToInt( GUI.HorizontalSlider( new Rect( 0f, 64f, 256f, 64f ), householdIncome, 0f, 100000f ) );
-        GUI.Label( new Rect( 0f, 96f, 256f, 64f ), "household income, monthly: $" + ( householdIncome / 12 ).ToString() );
+        GUI.Label( new Rect(0f, 8f, 256f, 32f), "household size: " + householdSize.ToString() );
+        householdSize = Mathf.RoundToInt( GUI.HorizontalSlider( new Rect( 0f, 0f, 256f, 32f ), householdSize, 1f, 8f ) );
+        GUI.Label( new Rect(0f, 48f, 256f, 32f), "household income, annual: $" + householdIncome.ToString() );
+        householdIncome = Mathf.RoundToInt( GUI.HorizontalSlider( new Rect( 0f, 40f, 256f, 32f ), householdIncome, 0f, 100000f ) );
+        GUI.Label( new Rect( 0f, 72f, 256f, 32f ), "household income, monthly: $" + ( householdIncome / 12 ).ToString() );
 
-        useNov1 = GUI.Toggle( new Rect( 0f, 192f, 256f, 32f ), useNov1, "use post-Nov 1 SNAP cuts?" );
-        GUI.Label( new Rect( 0f, 256f, 256f, 64f ), "predicted SNAP benefit per month: $" + GetSnap().ToString() );
+        useNov1 = GUI.Toggle( new Rect( 0f, 96f, 256f, 32f ), useNov1, "use post-Nov 1 SNAP cuts?" );
+        GUI.Label( new Rect( 32f, 128f, 256f, 32f ), "predicted SNAP benefit per month: $" + GetSnap().ToString() );
     }
 }

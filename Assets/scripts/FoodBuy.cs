@@ -21,6 +21,7 @@ public class FoodBuy : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         scannerMesh.material.color = Color.Lerp( scannerMesh.material.color, new Color( 0.2f, 0.02f, 0f, 0f ), Time.deltaTime * 5f );
+        UpdateCart();
 	}
 
     void OnTriggerEnter(Collider c) {
@@ -34,19 +35,26 @@ public class FoodBuy : MonoBehaviour {
 
             // add to cart, update cart
             cart.Add( item );
-            string cartText = "";
-            float cartTotal = 0f;
-            foreach ( FoodItem thing in cart ) {
-                cartText += thing.ToScanString( false ) + "\n";
-                cartTotal += thing.foodPrice;
-            }
-            textCart.text = cartText + "TOTAL COST: $" + cartTotal.ToString("F2");
+            // UpdateCart();
 
             // move item along
             if ( item == currentHeld )
                 currentHeld = null;
             item.rigidbody.velocity = transform.forward * 15f - transform.up * 3f;
         }
+    }
+
+    public void UpdateCart() {
+        string cartText = "";
+        float cartTotal = 0f;
+        foreach ( FoodItem thing in cart ) {
+            cartText += thing.ToScanString( false ) + "\n";
+            cartTotal += thing.foodPrice;
+        }
+        float ebt = 1f * SnapCalc.instance.benefit / 4f;
+        textCart.text = cartText + "==========\nTOTAL COST: $" + cartTotal.ToString( "F2" ) + "\n" +
+                        "weekly EBT: -$" + ebt.ToString( "F2" ) + "\n" +
+                        "you pay: $" + Mathf.Clamp( cartTotal - ebt, 0f, 1000f ).ToString( "F2" );
     }
 
     void FixedUpdate() {
@@ -58,7 +66,7 @@ public class FoodBuy : MonoBehaviour {
                 Vector3 idealPos = rayHit.point + Vector3.up * 1f;
                 idealPos.z = 0f;
                 Vector3 idealForce = ( idealPos - currentHeld.transform.position );
-                float force = -0.6f * (-1f + Vector3.Dot( currentHeld.rigidbody.velocity.normalized, idealForce.normalized ));
+                float force = -1f * (-1f + Vector3.Dot( currentHeld.rigidbody.velocity.normalized, idealForce.normalized ));
                 currentHeld.rigidbody.AddForce( idealForce * force, ForceMode.VelocityChange );
             }
         }
