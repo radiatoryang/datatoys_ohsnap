@@ -4,6 +4,17 @@ using System.Collections.Generic;
 
 public class FoodBuy : MonoBehaviour {
 
+    // TODO:
+    // - add categories, automatic stocking shelves
+    // - add a "basket" that automatically collects food, then you click to dump it on the belt and begin scanning
+    // - add voiding / returning an item
+    // - add a rationing scheduler, tells you how you split the food per day per member of family
+
+    // TODO, V2:
+    // - add a "shopping list", you choose what meals each member of household can have each day, shop for the list
+    // - you define members of your household... parents, single parent, senior, son, daughter... (check statistics, put it in RNG)
+    // - add touch support for iOS/Android
+
     public static FoodBuy instance;
     public TextMesh textScanner;
     public TextMesh textCart;

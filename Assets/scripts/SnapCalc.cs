@@ -65,7 +65,7 @@ public class SnapCalc : MonoBehaviour {
     }
 
     void OnGUI() {
-        if ( GUI.Button( new Rect( 256f, 0f, 256f, 32f ), "generate random poor household" ) ) {
+        if ( GUI.Button( new Rect( 256f, 0f, 96f, 24f ), "randomize" ) ) {
             householdSize = Random.Range( 1, 8 );
             householdIncome = Random.Range( 0, povertyTable[householdSize]);
         }
@@ -73,9 +73,9 @@ public class SnapCalc : MonoBehaviour {
         householdSize = Mathf.RoundToInt( GUI.HorizontalSlider( new Rect( 0f, 0f, 256f, 32f ), householdSize, 1f, 8f ) );
         GUI.Label( new Rect(0f, 48f, 256f, 32f), "household income, annual: $" + householdIncome.ToString() );
         householdIncome = Mathf.RoundToInt( GUI.HorizontalSlider( new Rect( 0f, 40f, 256f, 32f ), householdIncome, 0f, 100000f ) );
-        GUI.Label( new Rect( 0f, 72f, 256f, 32f ), "household income, monthly: $" + ( householdIncome / 12 ).ToString() );
+        GUI.Label( new Rect( 0f, 64f, 256f, 32f ), "household income, monthly: $" + ( householdIncome / 12 ).ToString() );
 
-        useNov1 = GUI.Toggle( new Rect( 0f, 96f, 256f, 32f ), useNov1, "use post-Nov 1 SNAP cuts?" );
-        GUI.Label( new Rect( 32f, 128f, 256f, 32f ), "predicted SNAP benefit per month: $" + GetSnap().ToString() );
+        useNov1 = GUI.Toggle( new Rect( 400f, 0f, 256f, 32f ), useNov1, "use post-Nov 1 SNAP cuts?" );
+        GUI.Label( new Rect( 400f, 24f, 256f, 32f ), "predicted SNAP benefit per month: $" + GetSnap().ToString() );
     }
 }
